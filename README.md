@@ -21,6 +21,72 @@ A reusable theme management package for Next.js and Vite applications. Automatic
 pnpm add @ogasphere/theme-manager
 ```
 
+## 🤖 Prompt pour IDE (Cursor / Claude Code)
+
+Copiez ce prompt dans votre IDE pour une intégration automatique complète :
+
+```
+Intègre le package @ogasphere/theme-manager dans ce projet. 
+
+CONTEXTE:
+- Framework: [Next.js ou Vite - détecte automatiquement]
+- Type de projet: [nouveau projet ou projet existant - détecte automatiquement]
+- Package: @ogasphere/theme-manager (github:Olivier340/theme-manager)
+
+TÂCHES À EFFECTUER:
+
+1. INSTALLATION:
+   - Installer le package: pnpm add github:Olivier340/theme-manager
+   - Installer les dépendances nécessaires si manquantes: lucide-react, @radix-ui/react-select (si shadcn/ui utilisé)
+
+2. INTÉGRATION CSS:
+   - Détecter le fichier CSS global (app/globals.css, src/index.css, src/globals.css, etc.)
+   - Ajouter l'import: @import "@ogasphere/theme-manager/styles/themes.css";
+   - Placer l'import après les imports Tailwind si présents
+
+3. CONFIGURATION THEME PROVIDER (Next.js uniquement):
+   - Créer ou modifier app/providers.tsx (ou app/layout.tsx)
+   - Importer ThemeProvider depuis "@ogasphere/theme-manager/client"
+   - Envelopper l'application avec ThemeProvider
+   - Configurer defaultTheme="system" et enableSystem
+
+4. API ROUTE (Next.js uniquement):
+   - Créer app/api/themes/route.ts
+   - Importer getAvailableThemes depuis "@ogasphere/theme-manager/server"
+   - Créer un endpoint GET qui retourne { themes } en JSON
+   - Gérer les erreurs avec NextResponse
+
+5. PAGE BRANDING:
+   - Créer app/branding/page.tsx (Next.js) ou src/pages/branding.tsx (Vite)
+   - Importer BrandingPage depuis "@ogasphere/theme-manager/client"
+   - Importer les composants UI nécessaires (Card, Select, etc. depuis shadcn/ui ou équivalent)
+   - Importer les icônes depuis lucide-react (SunMedium, Moon, Monitor)
+   - Créer la logique handleThemeChange qui:
+     * Applique le thème au body avec applyTheme depuis "@ogasphere/theme-manager/utils"
+     * Sauvegarde dans localStorage
+   - Restaurer le thème au chargement depuis localStorage
+   - Passer tous les props nécessaires à BrandingPage (currentTheme, onThemeChange, components, icons)
+
+6. APPLICATION DU THÈME GLOBALEMENT:
+   - Créer un composant ThemeInitializer ou intégrer dans le layout
+   - Utiliser useEffect pour appliquer le thème sauvegardé au chargement
+   - Appliquer le thème au document.body avec applyTheme
+
+7. VÉRIFICATIONS:
+   - Vérifier que tous les imports sont corrects
+   - Vérifier que les composants UI requis sont disponibles
+   - S'assurer que le CSS est bien importé
+   - Tester que la page branding est accessible
+
+IMPORTANT:
+- Adapter le code selon le framework détecté (Next.js vs Vite)
+- Utiliser les chemins corrects selon la structure du projet
+- Si shadcn/ui n'est pas installé, proposer une alternative ou installer les composants nécessaires
+- Créer tous les fichiers manquants
+- Ne pas modifier les fichiers existants de manière destructive
+- Documenter les changements effectués
+```
+
 ## Quick Start
 
 ### 1. Import Base Theme Styles
