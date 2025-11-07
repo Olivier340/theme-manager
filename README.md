@@ -1,4 +1,4 @@
-# @your-org/theme-manager
+# @ogasphere/theme-manager
 
 A reusable theme management package for Next.js and Vite applications. Automatically discovers themes from CSS files and provides utilities for theme management.
 
@@ -18,7 +18,7 @@ A reusable theme management package for Next.js and Vite applications. Automatic
 ## Installation
 
 ```bash
-pnpm add @your-org/theme-manager
+pnpm add @ogasphere/theme-manager
 ```
 
 ## Quick Start
@@ -29,14 +29,14 @@ Import the base theme CSS in your global stylesheet:
 
 ```css
 /* app/globals.css or styles/globals.css */
-@import "@your-org/theme-manager/styles/themes.css";
+@import "@ogasphere/theme-manager/styles/themes.css";
 ```
 
 Or in your main CSS file:
 
 ```css
 @import "tailwindcss";
-@import "@your-org/theme-manager/styles/themes.css";
+@import "@ogasphere/theme-manager/styles/themes.css";
 ```
 
 ### 2. Use the Branding Page Component
@@ -44,7 +44,7 @@ Or in your main CSS file:
 ```typescript
 "use client";
 
-import { BrandingPage } from "@your-org/theme-manager/client";
+import { BrandingPage } from "@ogasphere/theme-manager/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Monitor, Moon, SunMedium } from "lucide-react";
@@ -88,7 +88,7 @@ export function MyBrandingPage() {
 #### 1. Server-side: Get Available Themes
 
 ```typescript
-import { getAvailableThemes } from "@your-org/theme-manager/server";
+import { getAvailableThemes } from "@ogasphere/theme-manager/server";
 
 const themes = getAvailableThemes();
 ```
@@ -97,7 +97,7 @@ const themes = getAvailableThemes();
 
 ```typescript
 // app/api/themes/route.ts
-import { getAvailableThemes } from "@your-org/theme-manager/server";
+import { getAvailableThemes } from "@ogasphere/theme-manager/server";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -118,7 +118,7 @@ export async function GET() {
 ```typescript
 "use client";
 
-import { useThemes } from "@your-org/theme-manager/client";
+import { useThemes } from "@ogasphere/theme-manager/client";
 
 export function ThemeSelector() {
   const { data: themes, isLoading } = useThemes();
@@ -140,7 +140,7 @@ export function ThemeSelector() {
 #### 4. Apply Theme to Element
 
 ```typescript
-import { applyTheme } from "@your-org/theme-manager/utils";
+import { applyTheme } from "@ogasphere/theme-manager/utils";
 
 const element = document.body;
 applyTheme(element, "modern-minimal");
@@ -155,7 +155,7 @@ The package includes a ready-to-use `BrandingPage` component that provides a com
 ```typescript
 "use client";
 
-import { BrandingPage } from "@your-org/theme-manager/client";
+import { BrandingPage } from "@ogasphere/theme-manager/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Monitor, Moon, SunMedium } from "lucide-react";
@@ -239,7 +239,7 @@ The package includes base theme CSS styles. Import them in your global styleshee
 ```css
 /* app/globals.css */
 @import "tailwindcss";
-@import "@your-org/theme-manager/styles/themes.css";
+@import "@ogasphere/theme-manager/styles/themes.css";
 ```
 
 The CSS file includes:
@@ -252,7 +252,7 @@ The CSS file includes:
 #### Custom CSS Path
 
 ```typescript
-import { getAvailableThemes } from "@your-org/theme-manager/server";
+import { getAvailableThemes } from "@ogasphere/theme-manager/server";
 
 const themes = getAvailableThemes({
   cssPath: path.join(process.cwd(), "styles", "themes.css"),
@@ -266,7 +266,7 @@ const themes = getAvailableThemes({
 #### Custom API Path
 
 ```typescript
-import { useThemes } from "@your-org/theme-manager/client";
+import { useThemes } from "@ogasphere/theme-manager/client";
 
 const { data: themes } = useThemes({
   apiPath: "/api/custom/themes",
@@ -281,7 +281,7 @@ const { data: themes } = useThemes({
 ```typescript
 "use client";
 
-import { useThemes } from "@your-org/theme-manager/client";
+import { useThemes } from "@ogasphere/theme-manager/client";
 
 export function ThemeSelector() {
   const { data: themes, isLoading } = useThemes({
@@ -310,7 +310,7 @@ export function ThemeSelector() {
 ```typescript
 "use client";
 
-import { getAvailableThemesClient } from "@your-org/theme-manager/client";
+import { getAvailableThemesClient } from "@ogasphere/theme-manager/client";
 
 async function loadThemes() {
   const themes = await getAvailableThemesClient({
@@ -324,7 +324,7 @@ async function loadThemes() {
 
 ```typescript
 import cssContent from "./index.css?raw";
-import { getAvailableThemesClient } from "@your-org/theme-manager/client";
+import { getAvailableThemesClient } from "@ogasphere/theme-manager/client";
 
 const themes = await getAvailableThemesClient({
   cssContent, // Pass CSS content directly
@@ -337,7 +337,7 @@ If you're using Vite with a backend API, you can create an API endpoint:
 
 ```typescript
 // src/api/themes.ts or your API route handler
-import { getAvailableThemes } from "@your-org/theme-manager/server";
+import { getAvailableThemes } from "@ogasphere/theme-manager/server";
 
 export async function getThemes() {
   return getAvailableThemes({
@@ -374,7 +374,7 @@ The package includes a theme provider that wraps `next-themes`:
 ```typescript
 "use client";
 
-import { ThemeProvider } from "@your-org/theme-manager/client";
+import { ThemeProvider } from "@ogasphere/theme-manager/client";
 
 export function Providers({ children }) {
   return (
@@ -457,7 +457,7 @@ type UseThemesOptions = {
 
 1. Install the package:
    ```bash
-   pnpm add @your-org/theme-manager
+   pnpm add @ogasphere/theme-manager
    ```
 
 2. Replace imports:
@@ -466,13 +466,13 @@ type UseThemesOptions = {
    import { getAvailableThemes } from "@/lib/themes/get-available-themes";
    
    // After
-   import { getAvailableThemes } from "@your-org/theme-manager/server";
+   import { getAvailableThemes } from "@ogasphere/theme-manager/server";
    ```
 
 3. Update API route:
    ```typescript
    // app/api/themes/route.ts
-   import { getAvailableThemes } from "@your-org/theme-manager/server";
+   import { getAvailableThemes } from "@ogasphere/theme-manager/server";
    ```
 
 4. Update hooks:
@@ -481,12 +481,12 @@ type UseThemesOptions = {
    import { useThemes } from "@/hooks/use-themes";
    
    // After
-   import { useThemes } from "@your-org/theme-manager/client";
+   import { useThemes } from "@ogasphere/theme-manager/client";
    ```
 
 5. Use validation utilities:
    ```typescript
-   import { validateThemeId } from "@your-org/theme-manager/core";
+   import { validateThemeId } from "@ogasphere/theme-manager/core";
    
    if (!validateThemeId(themeId, availableThemes)) {
      throw new Error("Invalid theme ID");
