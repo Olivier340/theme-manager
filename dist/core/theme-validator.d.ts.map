@@ -1,0 +1,1 @@
+{"version":3,"file":"theme-validator.d.ts","sourceRoot":"","sources":["../../src/core/theme-validator.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,KAAK,EAAE,MAAM,eAAe,CAAC;AAE3C,wBAAgB,eAAe,CAC7B,OAAO,EAAE,MAAM,EACf,eAAe,EAAE,KAAK,EAAE,GACvB,OAAO,CAET;AAED,wBAAgB,YAAY,CAC1B,OAAO,EAAE,MAAM,EACf,eAAe,EAAE,KAAK,EAAE,GACvB,KAAK,GAAG,SAAS,CAEnB"}

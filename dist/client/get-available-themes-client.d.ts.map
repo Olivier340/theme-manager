@@ -1,0 +1,1 @@
+{"version":3,"file":"get-available-themes-client.d.ts","sourceRoot":"","sources":["../../src/client/get-available-themes-client.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,KAAK,EAAE,WAAW,EAAE,MAAM,qBAAqB,CAAC;AAO9D,wBAAsB,wBAAwB,CAC5C,OAAO,CAAC,EAAE,WAAW,GAAG;IAAE,UAAU,CAAC,EAAE,MAAM,CAAA;CAAE,GAC9C,OAAO,CAAC,KAAK,EAAE,CAAC,CAmClB"}
