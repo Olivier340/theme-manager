@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import type { Theme } from "../core/theme-types";
 import { useThemes } from "./use-themes";
+import { applyTheme } from "../utils/apply-theme";
 
 export type BrandingPageComponents = {
   Card: React.ComponentType<{
@@ -87,7 +88,17 @@ export function BrandingPage({
   apiPath,
   icons,
 }: BrandingPageProps) {
-  const [selectedTheme, setSelectedTheme] = useState(currentTheme);
+  // Charger depuis localStorage si currentTheme n'est pas fourni
+  const getInitialTheme = () => {
+    if (currentTheme) return currentTheme;
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("selectedTheme");
+      return savedTheme || "default";
+    }
+    return "default";
+  };
+
+  const [selectedTheme, setSelectedTheme] = useState(getInitialTheme);
   const { data: availableThemes = [], isLoading } = useThemes(
     apiPath ? { apiPath } : undefined
   );
@@ -101,10 +112,26 @@ export function BrandingPage({
     }
   }, [currentColorTheme]);
 
+  // Appliquer le thème au chargement depuis localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined" && !isLoading && selectedTheme) {
+      applyTheme(document.body, selectedTheme);
+    }
+  }, [isLoading, selectedTheme]);
+
   const handleThemeChange = async (themeId: string) => {
     setSelectedTheme(themeId);
     try {
+      // Appliquer le thème immédiatement
+      if (typeof window !== "undefined") {
+        applyTheme(document.body, themeId);
+        // Stocker le thème personnalisé dans localStorage
+        localStorage.setItem("selectedTheme", themeId);
+      }
+
       await onThemeChange(themeId);
+      
+      // Stocker le mode couleur (déjà fait par next-themes, mais on le préserve ici aussi)
       const themeToPreserve =
         preservedThemeRef.current ?? currentColorTheme;
       if (themeToPreserve && typeof window !== "undefined") {
