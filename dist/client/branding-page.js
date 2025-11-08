@@ -3,8 +3,19 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useThemes } from "./use-themes";
+import { applyTheme } from "../utils/apply-theme";
 export function BrandingPage({ currentTheme, onThemeChange, components, title = "Branding", description = "Manage the theme for your application.", cardTitle = "Theme Settings", cardDescription = "Choose a theme that will be applied across your application.", colorModeLabel = "Color Mode", themeSelectLabel = "Select Theme", loadingText = "Loading themes...", successMessage, errorMessage, apiPath, icons, }) {
-    const [selectedTheme, setSelectedTheme] = useState(currentTheme);
+    // Charger depuis localStorage si currentTheme n'est pas fourni
+    const getInitialTheme = () => {
+        if (currentTheme)
+            return currentTheme;
+        if (typeof window !== "undefined") {
+            const savedTheme = localStorage.getItem("selectedTheme");
+            return savedTheme || "default";
+        }
+        return "default";
+    };
+    const [selectedTheme, setSelectedTheme] = useState(getInitialTheme);
     const { data: availableThemes = [], isLoading } = useThemes(apiPath ? { apiPath } : undefined);
     const { theme: currentColorTheme, setTheme: setColorTheme, resolvedTheme } = useTheme();
     const preservedThemeRef = useRef(null);
@@ -13,10 +24,23 @@ export function BrandingPage({ currentTheme, onThemeChange, components, title = 
             preservedThemeRef.current = currentColorTheme;
         }
     }, [currentColorTheme]);
+    // Appliquer le thème au chargement depuis localStorage
+    useEffect(() => {
+        if (typeof window !== "undefined" && !isLoading && selectedTheme) {
+            applyTheme(document.body, selectedTheme);
+        }
+    }, [isLoading, selectedTheme]);
     const handleThemeChange = async (themeId) => {
         setSelectedTheme(themeId);
         try {
+            // Appliquer le thème immédiatement
+            if (typeof window !== "undefined") {
+                applyTheme(document.body, themeId);
+                // Stocker le thème personnalisé dans localStorage
+                localStorage.setItem("selectedTheme", themeId);
+            }
             await onThemeChange(themeId);
+            // Stocker le mode couleur (déjà fait par next-themes, mais on le préserve ici aussi)
             const themeToPreserve = preservedThemeRef.current ?? currentColorTheme;
             if (themeToPreserve && typeof window !== "undefined") {
                 localStorage.setItem("theme", themeToPreserve);
