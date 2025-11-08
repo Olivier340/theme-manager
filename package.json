@@ -1,6 +1,6 @@
 {
   "name": "@ogasphere/theme-manager",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A reusable theme management package for Next.js and Vite applications",
   "type": "module",
   "main": "./dist/index.js",
@@ -67,7 +67,8 @@
     "dist",
     "src/styles",
     "README.md",
-    "STORAGE.md"
+    "STORAGE.md",
+    "PROMPT_BDD.md"
   ]
 }
 
